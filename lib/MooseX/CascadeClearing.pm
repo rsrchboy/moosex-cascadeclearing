@@ -29,21 +29,13 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use Moose;
     use MooseX::CascadeClearing;
 
     has master => (
-        is => 'rw',
-        isa => 'Str',
-        clearer => 'clear_master',
-        predicate => 'has_master',
-        lazy => 1,
-        default => 'nuts',
-        clear_master => 'foo',
+        is              => 'rw',
+        isa             => 'Str',
+        lazy_build      => 1,
         is_clear_master => 1,
     );
 
@@ -88,11 +80,27 @@ We don't yet trigger a cascade clear on a master attribute's value being set
 through a setter/accessor accessor.  This will likely be available as an
 option in the not-too-distant-future.
 
-=head1 NITTY-GRITTY
+=head1 ATTRIBUTE OPTIONS
 
 We install an attribute metaclass trait that provides two additional
 atttribute options, as well as wraps the generated clearer method for a
-designated "master" attribute.
+designated "master" attribute.  By default, use'ing this module causes this
+trait to be installed for all attributes in the package.
+
+=over 4
+
+=item is_clear_master => (0|1)
+
+If set to 1, we wrap this attribute's clearer with a sub that looks for other
+attributes to clear.
+
+=item clear_master => Str
+
+Marks this attribute as one that should be cleared when the named attribute's
+clearer is called.  Note that no checking is done to ensure that the named
+master is actually an attribute in the class.
+
+=back
 
 =cut
 
@@ -159,8 +167,6 @@ sub init_meta {
         for_class => $options{for_class},
         attribute_metaclass_roles =>
             ['MooseX::CascadeClearing::Role::Meta::Attribute'],
-        #instance_metaclass_roles =>
-        #    ['MooseX::CascadeClearing::Role::Meta::Instance'],
     );
 
     ### applied traits, returning...
@@ -212,7 +218,7 @@ L<http://search.cpan.org/dist/MooseX-CascadeClearing/>
 
 =head1 ACKNOWLEDGEMENTS
 
-L<MooseX::AlwaysCoerce>, for prompting me to do this in a slightly more sane
+L<MooseX::AlwaysCoerce>, for inspiring me to do this in a slightly more sane
 fashion than I was previously.
 
 And of course the L<Moose> team, who have made my life significantly easier
