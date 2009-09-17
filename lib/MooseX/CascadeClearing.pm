@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 use namespace::autoclean;
-use Moose 0.90 ();
+use Moose ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 use Carp;
@@ -20,11 +20,11 @@ MooseX::CascadeClearing - Cascade clearer actions across attributes
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS

@@ -9,8 +9,8 @@ license  'lgpl';
 
 no_index 'directory' => 'xt';
 
-requires 'Moose'                => '0.90';
-requires 'namespace::autoclean' => '0.09';
+requires 'Moose'                => '0.88';
+requires 'namespace::autoclean' => '0.08';
 
 test_requires 'Test::More';
 
