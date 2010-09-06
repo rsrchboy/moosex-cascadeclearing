@@ -1,56 +1,134 @@
-MooseX-CascadeClearing
+NAME
+    MooseX::CascadeClearing - Cascade clearer actions across attributes
 
-Easily clear related attributes with one, standard clearer call.
+VERSION
+    Version 0.02
 
-INSTALLATION
+SYNOPSIS
+        use Moose;
+        use MooseX::CascadeClearing;
 
-To install this module, run the following commands:
+        has master => (
+            is              => 'rw',
+            isa             => 'Str',
+            lazy_build      => 1,
+            is_clear_master => 1,
+        );
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+        my @opts = (
+            is => 'ro', isa => 'Str', clear_master => 'master', lazy_build => 1,
+        );
 
-SUPPORT AND DOCUMENTATION
+        has sub1 => @opts; 
+        has sub2 => @opts;
+        has sub3 => @opts;
 
-After installing, you can find documentation for this module with the
-perldoc command.
+        sub _build_sub1 { shift->master . "1" }
+        sub _build_sub2 { shift->master . "2" }
+        sub _build_sub3 { shift->master . "3" }
 
-    perldoc MooseX::CascadeClearing
+        sub some_sub {
+            # ... 
 
-You can also look for information at:
+            # clear master, sub[123] in one fell swoop
+            $self->clear_master;
 
-    RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-CascadeClearing
+        }
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/MooseX-CascadeClearing
+DESCRIPTION
+    MooseX::CascadeClearing does the necessary metaclass fiddling to allow
+    an clearing one attribute to be cascaded through to other attributes as
+    well, calling their clearers.
 
-    CPAN Ratings
-        http://cpanratings.perl.org/d/MooseX-CascadeClearing
+    The intended purpose of this is to assist in situations where the value
+    of one attribute is derived from the value of another attribute -- say a
+    situation where the secondary value is expensive to derive and is thus
+    lazily built. A change to the primary attribute's value would invalidate
+    the secondary value and as such the secondary should be cleared. While
+    it could be argued that this is trivial to do manually for a few
+    attributes, once we consider subclassing and adding in roles the ability
+    to "auto-clear", as it were, is a valuable trait. (Sorry, couldn't
+    resist.)
 
-    Search CPAN
-        http://search.cpan.org/dist/MooseX-CascadeClearing/
+CAVEAT
+    We don't yet trigger a cascade clear on a master attribute's value being
+    set through a setter/accessor accessor. This will likely be available as
+    an option in the not-too-distant-future.
 
+ATTRIBUTE OPTIONS
+    We install an attribute metaclass trait that provides two additional
+    atttribute options, as well as wraps the generated clearer method for a
+    designated "master" attribute. By default, use'ing this module causes
+    this trait to be installed for all attributes in the package.
 
-COPYRIGHT AND LICENCE
+    is_clear_master => (0|1)
+        If set to 1, we wrap this attribute's clearer with a sub that looks
+        for other attributes to clear.
 
-Copyright (C) 2009 Chris Weyl
+    clear_master => Str
+        Marks this attribute as one that should be cleared when the named
+        attribute's clearer is called. Note that no checking is done to
+        ensure that the named master is actually an attribute in the class.
 
-This library is free software; you can redistribute it and/or modify it under
-the terms of the GNU Lesser General Public License as published by the Free 
-Software Foundation; either version 2.1 of the License, or (at your option) 
-any later version.
+AUTHOR
+    Chris Weyl, "<cweyl at alumni.drew.edu>"
 
-This library is distributed in the hope that it will be useful, but WITHOUT 
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-OR A PARTICULAR PURPOSE.
+BUGS
+    Please report any bugs or feature requests to
+    "bug-moosex-cascadeclearing at rt.cpan.org", or through the web
+    interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing>.
+    I will be notified, and then you'llautomatically be notified of progress
+    on your bug as I make changes.
 
-See the GNU Lesser General Public License for more details.  
+SUPPORT
+    You can find documentation for this module with the perldoc command.
 
-You should have received a copy of the GNU Lesser General Public License 
-along with this library; if not, write to the 
+        perldoc MooseX::CascadeClearing
 
-    Free Software Foundation, Inc., 
-    59 Temple Place, Suite 330, 
-    Boston, MA  02111-1307 USA
+    You can also look for information at:
+
+    *   RT: CPAN's request tracker
+
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-CascadeClearing>
+
+    *   AnnoCPAN: Annotated CPAN documentation
+
+        <http://annocpan.org/dist/MooseX-CascadeClearing>
+
+    *   CPAN Ratings
+
+        <http://cpanratings.perl.org/d/MooseX-CascadeClearing>
+
+    *   Search CPAN
+
+        <http://search.cpan.org/dist/MooseX-CascadeClearing/>
+
+ACKNOWLEDGEMENTS
+    MooseX::AlwaysCoerce, for inspiring me to do this in a slightly more
+    sane fashion than I was previously.
+
+    And of course the Moose team, who have made my life significantly easier
+    (and more fun!) since 0.17 :)
+
+COPYRIGHT & LICENSE
+    Copyright (c) 2009, Chris Weyl "<cweyl@alumni.drew.edu>".
+
+    This library is free software; you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation; either version 2.1 of the License, or (at
+    your option) any later version.
+
+    This library is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS OR A PARTICULAR PURPOSE.
+
+    See the GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this library; if not, write to the
+
+        Free Software Foundation, Inc., 
+        59 Temple Place, Suite 330, 
+        Boston, MA  02111-1307 USA
+
