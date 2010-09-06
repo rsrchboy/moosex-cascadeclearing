@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
@@ -16,14 +16,14 @@ isa_ok $foo, 'SingleCascade';
 my $meta = $foo->meta;
 isa_ok $meta, 'Moose::Meta::Class';
 
-my %atts = %{$meta->get_attribute_map};
+my %atts = map { $_ => 1 } $meta->get_attribute_list;
 
 my @names = keys %atts;
 ### hmm: @names
 
 ok exists $atts{master}, 'master att exists';
 
-my $master = $atts{master};
+my $master = $meta->get_attribute('master');
 
 TODO: {
     local $TODO = q{Attributes don't seem to acknowledge being trait'ed};

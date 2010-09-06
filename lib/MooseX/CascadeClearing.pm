@@ -163,10 +163,11 @@ sub init_meta {
     ### in init_meta: $options{for_class} 
     Moose->init_meta(%options);
 
-    Moose::Util::MetaRole::apply_metaclass_roles(
-        for_class => $options{for_class},
-        attribute_metaclass_roles =>
-            ['MooseX::CascadeClearing::Role::Meta::Attribute'],
+    Moose::Util::MetaRole::apply_metaroles(
+        for => $options{for_class},
+        class_metaroles => {
+            attribute => ['MooseX::CascadeClearing::Role::Meta::Attribute'],
+        },
     );
 
     ### applied traits, returning...
