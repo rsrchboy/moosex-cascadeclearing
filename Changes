@@ -1,5 +1,9 @@
 Revision history for MooseX-CascadeClearing
 
+0.03    Mon Sep  6 15:22:50 PDT 2010
+- Update how we use Moose::Util::MetaRole such that we avoid depreciation
+  warnings
+
 0.02    Thu Sep 17 08:30:27 PDT 2009
 - dial back our Moose req to 0.88; we don't strictly need 0.90 and 0.88 is
   available in Fedora 11 at the moment
