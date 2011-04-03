@@ -1,5 +1,9 @@
 Revision history for MooseX-CascadeClearing
 
+0.04
+- Allow MooseX::CascadeClearing to be used in a role with Moose 1.9900+ (Dave
+  Rolsky)
+
 0.03    Mon Sep  6 15:22:50 PDT 2010
 - Update how we use Moose::Util::MetaRole such that we avoid depreciation
   warnings
