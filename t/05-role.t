@@ -6,7 +6,15 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/lib/";
 
-use Test::More tests => 12; 
+use Test::More;
+
+BEGIN {
+    require Moose;
+    plan skip_all => 'These tests require Moose 1.9900+'
+        unless $Moose::VERSION >= 1.9900;
+}
+
+plan tests => 12;
 
 use CascadeFromRole;
 
