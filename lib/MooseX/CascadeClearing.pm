@@ -24,9 +24,9 @@ Moose::Exporter->setup_import_methods;
     has clear_master    => (is => 'rw', isa => 'Str', predicate => 'has_clear_master');
     has is_clear_master => (is => 'rw', isa => 'Bool', default => 0);
 
-    after install_accessors => sub {  
+    after install_accessors => sub {
         my ($self, $inline) = @_;
-    
+
         ### in install_accessors, installing if: $self->is_clear_master
         return unless $self->is_clear_master;
 
@@ -39,23 +39,23 @@ Moose::Exporter->setup_import_methods;
             unless $self->has_clearer;
 
         ### installing master clearer...
-        $self->associated_class->add_after_method_modifier($self->clearer, sub { 
+        $self->associated_class->add_after_method_modifier($self->clearer, sub {
             my $self = shift @_;
-        
+
             ### in clear_value...
             return unless $att->is_clear_master;
 
             ### looping over our attributes...
             my @attributes = $self->meta->get_all_attributes;
-    
+
             for my $attr (@attributes) {
-            
+
                 ### working on: $attr->name
                 # ->does() seems to be giving us weird results
-                if ($attr->can('clear_master') 
-                    && $attr->has_clear_master 
+                if ($attr->can('clear_master')
+                    && $attr->has_clear_master
                     && $attr->clear_master eq $name) {
-                        
+
                     ### clearing...
                     if (my $clearer = $attr->clearer) { $self->$clearer }
                     else { $attr->clear_value($self)                    }
@@ -72,7 +72,7 @@ sub init_meta {
     my %options = @_;
     my $for_class = $options{for_class};
 
-    ### in init_meta: $options{for_class} 
+    ### in init_meta: $options{for_class}
     Moose->init_meta(%options)
         unless Class::MOP::class_of($for_class);
 
@@ -119,7 +119,7 @@ __END__
         is => 'ro', isa => 'Str', clear_master => 'master', lazy_build => 1,
     );
 
-    has sub1 => @opts; 
+    has sub1 => @opts;
     has sub2 => @opts;
     has sub3 => @opts;
 
@@ -128,7 +128,7 @@ __END__
     sub _build_sub3 { shift->master . "3" }
 
     sub some_sub {
-        # ... 
+        # ...
 
         # clear master, sub[123] in one fell swoop
         $self->clear_master;
@@ -139,7 +139,7 @@ __END__
 
 MooseX::CascadeClearing does the necessary metaclass fiddling to allow an
 clearing one attribute to be cascaded through to other attributes as well,
-calling their clearers.  
+calling their clearers.
 
 The intended purpose of this is to assist in situations where the value of one
 attribute is derived from the value of another attribute -- say a situation
@@ -180,11 +180,11 @@ master is actually an attribute in the class.
 
 =head1 BUGS
 
-Please report any bugs or feature requests to 
+Please report any bugs or feature requests to
 C<bug-moosex-cascadeclearing at rt.cpan.org>, or through
-the web interface at 
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing>.  
-I will be notified, and then you'llautomatically be notified of progress 
+the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing>.
+I will be notified, and then you'llautomatically be notified of progress
 on your bug as I make changes.
 
 =head1 SUPPORT

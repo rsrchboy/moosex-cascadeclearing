@@ -19,7 +19,7 @@ my @opts = (
     is => 'ro', isa => 'Str', clear_master => 'master', lazy_build => 1,
 );
 
-has sub1 => @opts; 
+has sub1 => @opts;
 has sub2 => @opts;
 has sub3 => @opts;
 
