@@ -86,7 +86,7 @@ Chris Weyl, `<cweyl at alumni.drew.edu>`
 Please report any bugs or feature requests to 
 `bug-moosex-cascadeclearing at rt.cpan.org`, or through
 the web interface at 
-<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing>.  
+[http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing).  
 I will be notified, and then you'llautomatically be notified of progress 
 on your bug as I make changes.
 
@@ -100,21 +100,21 @@ You can find documentation for this module with the perldoc command.
 
 You can also look for information at:
 
-- * RT: CPAN's request tracker
+- RT: CPAN's request tracker
 
-<http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-CascadeClearing>
+[http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-CascadeClearing](http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-CascadeClearing)
 
-- * AnnoCPAN: Annotated CPAN documentation
+- AnnoCPAN: Annotated CPAN documentation
 
-<http://annocpan.org/dist/MooseX-CascadeClearing>
+[http://annocpan.org/dist/MooseX-CascadeClearing](http://annocpan.org/dist/MooseX-CascadeClearing)
 
-- * CPAN Ratings
+- CPAN Ratings
 
-<http://cpanratings.perl.org/d/MooseX-CascadeClearing>
+[http://cpanratings.perl.org/d/MooseX-CascadeClearing](http://cpanratings.perl.org/d/MooseX-CascadeClearing)
 
-- * Search CPAN
+- Search CPAN
 
-<http://search.cpan.org/dist/MooseX-CascadeClearing/>
+[http://search.cpan.org/dist/MooseX-CascadeClearing/](http://search.cpan.org/dist/MooseX-CascadeClearing/)
 
 
 
