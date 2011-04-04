@@ -11,3 +11,6 @@ MooseX-CascadeClearing-*
 cover_db
 META.yml
 inc/
+releases/
+.*.swp
+.build/

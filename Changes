@@ -1,5 +1,7 @@
 Revision history for MooseX-CascadeClearing
 
+{{$NEXT}}
+
 0.04
 - Allow MooseX::CascadeClearing to be used in a role with Moose 1.9900+ (Dave
   Rolsky)
