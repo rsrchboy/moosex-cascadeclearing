@@ -176,47 +176,6 @@ Marks this attribute as one that should be cleared when the named attribute's
 clearer is called.  Note that no checking is done to ensure that the named
 master is actually an attribute in the class.
 
-=back
-
-=head1 BUGS
-
-Please report any bugs or feature requests to
-C<bug-moosex-cascadeclearing at rt.cpan.org>, or through
-the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooseX-CascadeClearing>.
-I will be notified, and then you'llautomatically be notified of progress
-on your bug as I make changes.
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc MooseX::CascadeClearing
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooseX-CascadeClearing>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/MooseX-CascadeClearing>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/MooseX-CascadeClearing>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/MooseX-CascadeClearing/>
-
-=back
-
-
 =head1 ACKNOWLEDGEMENTS
 
 L<MooseX::AlwaysCoerce>, for inspiring me to do this in a slightly more sane
