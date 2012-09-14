@@ -14,7 +14,21 @@ use Carp;
 # debugging
 #use Smart::Comments '###', '####';
 
-Moose::Exporter->setup_import_methods;
+Moose::Exporter->setup_import_methods(
+    trait_aliases => [
+        [ 'MooseX::CascadeClearing::Role::Meta::Attribute' => 'CascadeClearing' ],
+    ],
+    class_metaroles => {
+        attribute => [
+            'MooseX::CascadeClearing::Role::Meta::Attribute',
+        ],
+    },
+    role_metaroles => {
+        applied_attribute => [
+            'MooseX::CascadeClearing::Role::Meta::Attribute',
+        ],
+    },
+);
 
 {
     package MooseX::CascadeClearing::Role::Meta::Attribute;
@@ -66,36 +80,6 @@ Moose::Exporter->setup_import_methods;
 }
 
 # can we prevent the clearer from being inlined?  Do we need to?  Are we?
-
-sub init_meta {
-    shift;
-    my %options = @_;
-    my $for_class = $options{for_class};
-
-    ### in init_meta: $options{for_class}
-    Moose->init_meta(%options)
-        unless Class::MOP::class_of($for_class);
-
-    my %metaroles = (
-        class_metaroles => {
-            attribute => ['MooseX::CascadeClearing::Role::Meta::Attribute'],
-        }
-    );
-
-    $metaroles{role_metaroles} = {
-        applied_attribute =>
-            ['MooseX::CascadeClearing::Role::Meta::Attribute'],
-        }
-        if $Moose::VERSION >= 1.9900;
-
-    Moose::Util::MetaRole::apply_metaroles(
-        for => $options{for_class},
-        %metaroles,
-    );
-
-    ### applied traits, returning...
-    return $for_class->meta;
-}
 
 1;
 
