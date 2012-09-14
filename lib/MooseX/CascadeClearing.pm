@@ -99,8 +99,11 @@ __END__
         is_clear_master => 1,
     );
 
-    my @opts = (
-        is => 'ro', isa => 'Str', clear_master => 'master', lazy_build => 1,
+    my @opts => (
+        is           => 'ro',
+        isa          => 'Str',
+        clear_master => 'master',
+        lazy_build   => 1,
     );
 
     has sub1 => @opts;
@@ -123,7 +126,7 @@ __END__
 
 MooseX::CascadeClearing does the necessary metaclass fiddling to allow an
 clearing one attribute to be cascaded through to other attributes as well,
-calling their clearers.
+calling their clear accessors.
 
 The intended purpose of this is to assist in situations where the value of one
 attribute is derived from the value of another attribute -- say a situation
@@ -143,8 +146,8 @@ option in the not-too-distant-future.
 =head1 ATTRIBUTE OPTIONS
 
 We install an attribute metaclass trait that provides two additional
-atttribute options, as well as wraps the generated clearer method for a
-designated "master" attribute.  By default, use'ing this module causes this
+attribute options, as well as wraps the generated clearer method for a
+designated "master" attribute.  By default, using this module causes this
 trait to be installed for all attributes in the package.
 
 =over 4
@@ -154,18 +157,12 @@ trait to be installed for all attributes in the package.
 If set to 1, we wrap this attribute's clearer with a sub that looks for other
 attributes to clear.
 
-=item clear_master => Str
+=item clear_master => < attribute_name >
 
 Marks this attribute as one that should be cleared when the named attribute's
 clearer is called.  Note that no checking is done to ensure that the named
 master is actually an attribute in the class.
 
-=head1 ACKNOWLEDGEMENTS
-
-L<MooseX::AlwaysCoerce>, for inspiring me to do this in a slightly more sane
-fashion than I was previously.
-
-And of course the L<Moose> team, who have made my life significantly easier
-(and more fun!) since 0.17 :)
+=back
 
 =cut
